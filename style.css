@@ -1,0 +1,19 @@
+:root {
+  --spacing: 1rem;
+}
+
+.section {
+  margin-bottom: var(--spacing);
+  padding: var(--spacing);
+  border: 1px solid black;
+  background-color: antiquewhite;
+}
+
+.form-item {
+  margin-bottom: var(--spacing);
+}
+
+label {
+  display: block;
+  font-weight: bold;
+}
