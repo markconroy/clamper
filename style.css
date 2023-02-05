@@ -7,6 +7,9 @@
   --border-color: var(--color-dark);
   --border: var(--border-width) solid var(--border-color);
   --transition-time: .3s;
+  --font-size-largest: clamp(2rem, -1.2rem + 5.34vw, 4rem);
+  --font-size-larger: clamp(1.75rem, -0.75rem + 3.33vw, 3rem);
+  --font-size-large: clamp(1.5rem, -0.451.5rem + 2vw, 2.25rem);
 }
 
 *, *::after, *::before {
@@ -34,6 +37,14 @@ body {
   padding: var(--spacing);
   line-height: 1.3;
   font-family: sans-serif;
+}
+
+h1 {
+  font-size: var(--font-size-largest);
+}
+
+h2 {
+  font-size: var(--font-size-larger);
 }
 
 .footer {
