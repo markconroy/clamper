@@ -10,7 +10,9 @@ function clampBuilder(minFontSize, maxFontSize, minWidthPx, maxWidthPx) {
   const slope = (maxFontSize - minFontSize) / (maxWidth - minWidth);
   const yAxisIntersection = -minWidth * slope + minFontSize;
 
-  return `clamp(${minFontSize}rem, ${yAxisIntersection}rem + ${slope * 100}vw, ${maxFontSize}rem)`;
+  return `clamp(${minFontSize}rem, ${yAxisIntersection}rem + ${
+    slope * 100
+  }vw, ${maxFontSize}rem)`;
 }
 
 const element = document.querySelector("h1");
@@ -70,10 +72,10 @@ function generateCode() {
   codeList.classList.add("code-list");
   element.appendChild(codeList);
   codeContainer.appendChild(element);
-  const listItems = document.querySelectorAll('.code-list-item');
-  listItems.forEach(item => {
+  const listItems = document.querySelectorAll(".code-list-item");
+  listItems.forEach((item) => {
     item.remove();
-  })
+  });
   sections.forEach((section) => {
     const parent = document.querySelector(".code-list");
     const listItem = document.createElement("li");
@@ -86,10 +88,50 @@ function generateCode() {
     const minWidthPx = section.querySelector(".input--min-window-size").value;
     const maxWidthPx = section.querySelector(".input--max-window-size").value;
     element.innerHTML = `
-      <code>${clampBuilder(minFontSize, maxFontSize, minWidthPx, maxWidthPx)}</code>
+      <code class="calculated-clamp-values">${clampBuilder(
+        minFontSize,
+        maxFontSize,
+        minWidthPx,
+        maxWidthPx
+      )}</code>
     `;
     parent.appendChild(listItem);
   });
+
+  const copyClampValues = async () => {
+    try {
+      const calculatedValues = document.querySelectorAll(
+        ".calculated-clamp-values"
+      );
+
+      const temporaryElement = document.createElement("text");
+      temporaryElement.value = "";
+      document.body.appendChild(temporaryElement);
+
+      calculatedValues.forEach((calculatedValue, index, array) => {
+        if (index === array.length - 1) {
+          temporaryElement.value += calculatedValue.innerHTML;
+        } else {
+          temporaryElement.value += calculatedValue.innerHTML + "\n";
+        }
+      });
+
+      await navigator.clipboard.writeText(temporaryElement.value);
+      document.body.removeChild(temporaryElement);
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+    }
+  };
+
+  const controls = document.querySelector(".controls");
+  if (!document.querySelector(".copy-to-clipboard")) {
+    const copyToClipboardButton = document.createElement("button");
+    copyToClipboardButton.classList.add("copy-to-clipboard");
+    copyToClipboardButton.setAttribute("type", "button");
+    copyToClipboardButton.innerText = "Copy values to a clipboard";
+    controls.insertAdjacentElement("beforeend", copyToClipboardButton);
+    copyToClipboardButton.addEventListener("click", copyClampValues);
+  }
 }
 
 createNewSection();
