@@ -72,9 +72,7 @@ function generateCode() {
 
   const copyClampValues = async () => {
     try {
-      const calculatedValues = document.querySelectorAll(
-        ".calculated-clamp-values"
-      );
+      const calculatedValues = document.querySelectorAll(".code-list-item .code-item code");
 
       const temporaryElement = document.createElement("text");
       temporaryElement.value = "";
