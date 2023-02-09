@@ -1,58 +1,58 @@
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Clamper: The Clamp Creator</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clamper: The Clamp Creator</title>
-  <link rel="stylesheet" href="style.css">
-</head>
-
-<body>
-  <h1>Clamper: The Clamp Creator</h1>
-  <h2>Work in Progress</h2>
-  <p>Don't @ me!</p>
-  <div class="sections"></div>
-  <div class="controls">
-    <button type="button" class="create-section">Add Another</button>
-    <button type="button" class="generate-clamps">Generate Clamps</button>
-  </div>
-  <div class="code-container">
-    <div class="generated-code" hidden>
-      <ul class="code-list"></ul>
+  <body>
+    <h1>Clamper: The Clamp Creator</h1>
+    <h2>Work in Progress</h2>
+    <p>Don't @ me!</p>
+    <div class="sections"></div>
+    <div class="controls">
+      <button type="button" class="create-section">Add Another</button>
+      <button type="button" class="generate-clamps">
+        &#9825; Generate Clamps
+      </button>
     </div>
-  </div>
-  <footer class="footer">
-    <p>Code is available on <a href="https://github.com/markconroy/clamper">GitHub</a>.</p>
-  </footer>
-
-  <template id="clamp-row">
-    <div class="section">
-      <div class="form-item">
-        <label for="input--min-font-value">Min font size (rem)</label>
-        <input type="text" id="input--min-font-value" class="input input--min-font-value" name="input--min-font-value" value="1">
-      </div>
-      <div class="form-item">
-        <label for="input--max-font-value">Max font size (rem)</label>
-        <input type="text" id="input--max-font-value" class="input input--max-font-value" name="input--max-font-value" value="2">
-      </div>
-      <div class="form-item">
-        <label for="input--min-window-size">Min window size (px)</label>
-        <input type="text" id="input--min-window-size" class="input input--min-window-size" name="input--min-window-size" value="360">
-      </div>
-      <div class="form-item">
-        <label for="input--max-window-size">Max window size (px)</label>
-        <input type="text" id="input--max-window-size" class="input input--max-window-size" name="input--max-window-size" value="960">
+    <div class="code-container">
+      <div class="generated-code" hidden>
+        <ul class="code-list"></ul>
       </div>
     </div>
-  </template>
+    <footer class="footer">
+      <p>Code is available on <a href="https://github.com/markconroy/clamper">GitHub</a>.</p>
+    </footer>
 
-  <template id="code-row">
-    <li class="code-list-item"><pre class="code-item"><code></code></pre></li>
-  </template>
+    <template id="clamp-row">
+      <div class="section">
+        <div class="form-item">
+          <label for="input--min-font-value">Min font size (rem)</label>
+          <input type="text" id="input--min-font-value" class="input input--min-font-value" name="input--min-font-value" value="1">
+        </div>
+        <div class="form-item">
+          <label for="input--max-font-value">Max font size (rem)</label>
+          <input type="text" id="input--max-font-value" class="input input--max-font-value" name="input--max-font-value" value="2">
+        </div>
+        <div class="form-item">
+          <label for="input--min-window-size">Min window size (px)</label>
+          <input type="text" id="input--min-window-size" class="input input--min-window-size" name="input--min-window-size" value="360">
+        </div>
+        <div class="form-item">
+          <label for="input--max-window-size">Max window size (px)</label>
+          <input type="text" id="input--max-window-size" class="input input--max-window-size" name="input--max-window-size" value="960">
+        </div>
+      </div>
+    </template>
 
-  <script src="script.js"></script>
-</body>
+    <template id="code-row">
+      <li class="code-list-item"><pre class="code-item"><code></code></pre></li>
+    </template>
 
+    <script src="script.js"></script>
+  </body>
 </html>
