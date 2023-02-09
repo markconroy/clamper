@@ -15,15 +15,44 @@
     <div class="sections"></div>
     <div class="controls">
       <button type="button" class="create-section">Add Another</button>
-      <button type="button" class="generate-clamps">Generate Clamps</button>
+      <button type="button" class="generate-clamps">
+        &#9825; Generate Clamps
+      </button>
     </div>
-    <div class="code-container"></div>
+    <div class="code-container">
+      <div class="generated-code" hidden>
+        <ul class="code-list"></ul>
+      </div>
+    </div>
     <footer class="footer">
-      <p>
-        Code is available on
-        <a href="https://github.com/markconroy/clamper">GitHub</a>.
-      </p>
+      <p>Code is available on <a href="https://github.com/markconroy/clamper">GitHub</a>.</p>
     </footer>
-    <script src="script.js  "></script>
+
+    <template id="clamp-row">
+      <div class="section">
+        <div class="form-item">
+          <label for="input--min-font-value">Min font size (rem)</label>
+          <input type="text" id="input--min-font-value" class="input input--min-font-value" name="input--min-font-value" value="1">
+        </div>
+        <div class="form-item">
+          <label for="input--max-font-value">Max font size (rem)</label>
+          <input type="text" id="input--max-font-value" class="input input--max-font-value" name="input--max-font-value" value="2">
+        </div>
+        <div class="form-item">
+          <label for="input--min-window-size">Min window size (px)</label>
+          <input type="text" id="input--min-window-size" class="input input--min-window-size" name="input--min-window-size" value="360">
+        </div>
+        <div class="form-item">
+          <label for="input--max-window-size">Max window size (px)</label>
+          <input type="text" id="input--max-window-size" class="input input--max-window-size" name="input--max-window-size" value="960">
+        </div>
+      </div>
+    </template>
+
+    <template id="code-row">
+      <li class="code-list-item"><pre class="code-item"><code></code></pre></li>
+    </template>
+
+    <script src="script.js"></script>
   </body>
 </html>

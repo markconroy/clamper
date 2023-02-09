@@ -1,6 +1,13 @@
 // Takes the viewport widths in pixels and the font sizes in rem
 // This function is copied from https://css-tricks.com/linearly-scale-font-size-with-css-clamp-based-on-the-viewport/
-function clampBuilder(minFontSize, maxFontSize, minWidthPx, maxWidthPx) {
+function clampBuilder(minFontSize, maxFontSize, minWidthPx, maxWidthPx, precision = 3) {
+  // Make sure we're using numbers instead of strings (so we can use .toFixed()
+  // etc as needed).
+  minFontSize = parseFloat(minFontSize);
+  maxFontSize = parseFloat(maxFontSize);
+  minWidthPx = parseFloat(minWidthPx);
+  maxWidthPx = parseFloat(maxWidthPx);
+
   const root = document.querySelector("html");
   const pixelsPerRem = Number(getComputedStyle(root).fontSize.slice(0, -2));
 
@@ -10,9 +17,7 @@ function clampBuilder(minFontSize, maxFontSize, minWidthPx, maxWidthPx) {
   const slope = (maxFontSize - minFontSize) / (maxWidth - minWidth);
   const yAxisIntersection = -minWidth * slope + minFontSize;
 
-  return `clamp(${minFontSize}rem, ${yAxisIntersection}rem + ${
-    slope * 100
-  }vw, ${maxFontSize}rem)`;
+  return `clamp(${minFontSize}rem, ${yAxisIntersection.toFixed(precision)}rem + ${(slope * 100).toFixed(precision)}vw, ${maxFontSize}rem)`;
 }
 
 const element = document.querySelector("h1");
@@ -21,28 +26,11 @@ const sectionsContainer = document.querySelector(".sections");
 const codeContainer = document.querySelector(".code-container");
 const sectionButton = document.querySelector(".create-section");
 const generateCodeButton = document.querySelector(".generate-clamps");
+const clampRowTemplate = document.querySelector('#clamp-row');
+const codeRowTemplate = document.querySelector('#code-row');
 
 function createNewSection() {
-  const element = document.createElement("div");
-  element.classList.add("section");
-  element.innerHTML = `
-        <div class="form-item">
-          <label for="input--min-font-value">Min font size (rem)</label>
-          <input type="text" id="input--min-font-value" class="input input--min-font-value" name="input--min-font-value" value="1">
-        </div>
-        <div class="form-item">
-          <label for="input--max-font-value">Max font size (rem)</label>
-          <input type="text" id="input--max-font-value" class="input input--max-font-value" name="input--max-font-value" value="2">
-        </div>
-        <div class="form-item">
-          <label for="input--min-window-size">Min window size (px)</label>
-          <input type="text" id="input--min-window-size" class="input input--min-window-size" name="input--min-window-size" value="360">
-        </div>
-        <div class="form-item">
-          <label for="input--max-window-size">Max window size (px)</label>
-          <input type="text" id="input--max-window-size" class="input input--max-window-size" name="input--max-window-size" value="960">
-        </div>
-      `;
+  const element = clampRowTemplate.content.cloneNode(true);
   sectionsContainer.appendChild(element);
   const sections = document.querySelectorAll(".section");
 
@@ -66,36 +54,20 @@ function updateSection(section, index) {
 
 function generateCode() {
   const sections = document.querySelectorAll(".section");
-  const element = document.createElement("div");
-  const codeList = document.createElement("ul");
-  element.classList.add("generated-code");
-  codeList.classList.add("code-list");
-  element.appendChild(codeList);
-  codeContainer.appendChild(element);
-  const listItems = document.querySelectorAll(".code-list-item");
-  listItems.forEach((item) => {
-    item.remove();
-  });
+  const element = document.querySelector('.generated-code');
+  const codeList = element.querySelector('.code-list');
+  element.hidden = false;
+  codeList.textContent = '';
   sections.forEach((section) => {
-    const parent = document.querySelector(".code-list");
-    const listItem = document.createElement("li");
-    const element = document.createElement("pre");
-    element.classList.add("code-item");
-    listItem.classList.add("code-list-item");
-    listItem.appendChild(element);
     const minFontSize = section.querySelector(".input--min-font-value").value;
     const maxFontSize = section.querySelector(".input--max-font-value").value;
     const minWidthPx = section.querySelector(".input--min-window-size").value;
     const maxWidthPx = section.querySelector(".input--max-window-size").value;
-    element.innerHTML = `
-      <code class="calculated-clamp-values">${clampBuilder(
-        minFontSize,
-        maxFontSize,
-        minWidthPx,
-        maxWidthPx
-      )}</code>
-    `;
-    parent.appendChild(listItem);
+    const codeRow = codeRowTemplate.content.cloneNode(true);
+    const codeElement = codeRow.querySelector('code');
+
+    codeElement.innerHTML = clampBuilder(minFontSize, maxFontSize, minWidthPx, maxWidthPx);
+    codeList.appendChild(codeRow);
   });
 
   const copyClampValues = async () => {
