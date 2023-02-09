@@ -134,6 +134,6 @@ pre {
   background: var(--color-light);
 }
 
-.code-list {
-  list-style: none;
+.code-item {
+  padding: var(--spacing);
 }
