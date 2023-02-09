@@ -1,6 +1,7 @@
 :root {
   --color-dark: #333;
   --color-light: #fafafa;
+  --color-accent: beige;
   --spacing: clamp(1rem, -0.6rem + 2.6vw, 2rem);
   --spacing-medium: calc(var(--spacing) / 2);
   --border-width: 3px;
@@ -108,8 +109,8 @@ input {
 .section {
   margin-bottom: var(--spacing);
   padding: var(--spacing);
-  border: 1px solid black;
-  background-color: beige;
+  border: var(--border);
+  background-color: var(--color-accent);
   display: grid;
   grid-template-columns: repeat(12, 1fr);
   grid-column-gap: 1em;
@@ -136,4 +137,5 @@ pre {
 
 .code-item {
   padding: var(--spacing);
+  border: var(--border);
 }
