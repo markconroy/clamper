@@ -69,6 +69,39 @@ function generateCode() {
     codeElement.innerHTML = clampBuilder(minFontSize, maxFontSize, minWidthPx, maxWidthPx);
     codeList.appendChild(codeRow);
   });
+
+  const copyClampValues = async () => {
+    try {
+      const calculatedValues = document.querySelectorAll(".code-list-item .code-item code");
+
+      const temporaryElement = document.createElement("text");
+      temporaryElement.value = "";
+      document.body.appendChild(temporaryElement);
+
+      calculatedValues.forEach((calculatedValue, index, array) => {
+        if (index === array.length - 1) {
+          temporaryElement.value += calculatedValue.innerHTML;
+        } else {
+          temporaryElement.value += calculatedValue.innerHTML + "\n";
+        }
+      });
+
+      await navigator.clipboard.writeText(temporaryElement.value);
+      document.body.removeChild(temporaryElement);
+    } catch (err) {
+      console.error("Failed to copy: ", err);
+    }
+  };
+
+  const controls = document.querySelector(".controls");
+  if (!document.querySelector(".copy-to-clipboard")) {
+    const copyToClipboardButton = document.createElement("button");
+    copyToClipboardButton.classList.add("copy-to-clipboard");
+    copyToClipboardButton.setAttribute("type", "button");
+    copyToClipboardButton.innerText = "Copy values to a clipboard";
+    controls.insertAdjacentElement("beforeend", copyToClipboardButton);
+    copyToClipboardButton.addEventListener("click", copyClampValues);
+  }
 }
 
 createNewSection();
