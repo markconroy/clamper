@@ -99,6 +99,7 @@ input {
 
 .controls {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--spacing);
   justify-content: center;
   margin-bottom: var(--spacing);
