@@ -131,6 +131,11 @@ pre {
   font-family: monospaced;
 }
 
+.code-list {
+  padding-left: 0;
+  list-style: none;
+}
+
 .code-list-item {
   background: var(--color-light);
 }
